@@ -156,11 +156,22 @@ app.get('/detruire/:id', (req, res) => {
  // console.log('util = ' + util.inspect(req.params));	
  var id = req.params.id
  console.log(id)
- db.collection('adresse')
- .findOneAndDelete({"_id": ObjectID(req.params.id)}, (err, resultat) => {
+ db.collection('adresse').findOneAndDelete({"_id": ObjectID(req.params.id)}, (err, resultat) => {
 
 if (err) return console.log(err)
  res.redirect('/adresse')  // redirige vers la route qui affiche la collection
+ })
+})
+
+app.post('/ajax_detruire/:id', (req, res) => {
+ console.log('route /detruire')
+ // console.log('util = ' + util.inspect(req.params));	
+ var id = req.params.id
+ console.log(id)
+ db.collection('adresse').findOneAndDelete({"_id": ObjectID(req.params.id)}, (err, resultat) => {
+
+if (err) return console.log(err)
+ res.send(JSON.stringify(ObjectID(req.params.id)));  // redirige vers la route qui affiche la collection
  })
 })
 
