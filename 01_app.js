@@ -111,6 +111,16 @@ console.log('route /ajouter')
  })
 })
 
+app.post('/ajax_ajouter', (req, res) => {
+console.log('route /ajax_ajouter')	
+ db.collection('adresse').save(req.body, (err, result) => {
+ if (err) return console.log(err)
+ // console.log(req.body)	
+ console.log('sauvegarder dans la BD')
+ res.send(JSON.stringify(req.body));
+ })
+})
+
 ////////////////////////////////////////  Route /modifier
 app.post('/modifier', (req, res) => {
 console.log('route /modifier')

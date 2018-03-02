@@ -1,9 +1,9 @@
-<form class="formulaire" action="/ajouter" method="POST">
+<form class="formulaire" id="formAjouter" action="#" method="POST">
  <input type="text" placeholder="<%=__('nom') %>" name="nom" id='nom'>
   <input type="text" placeholder="<%=__('prenom') %>" name="prenom" id='prenom'>
  <input type="text" placeholder="<%=__('telephone') %>" name="telephone" id='telephone'>
   <input type="text" placeholder="<%=__('courriel') %>" name="courriel" id='courriel'>
- <button type="submit"><%=__('ajouter') %></button>
+ <button name="boutonAjouter" type="button"><%=__('ajouter') %></button>
 </form>
 
 <form class="formulaire" name="frmUpdate" id="frmUpdate" action="/modifier" method="post">
@@ -14,3 +14,41 @@
     <input  type="text" placeholder="<%=__('courriel') %>" name="courriel" id='courriel'>
     <button type="submit"><%=__('modifier') %></button>
 </form>
+
+<script type="text/javascript">
+	let form = document.getElementById("formAjouter");
+
+    let elmAjouter = form.boutonAjouter;
+    elmAjouter.addEventListener('click', ()=>{
+    	let nom = form.nom.value;
+	    let prenom = form.prenom.value;
+	    let telephone = form.telephone.value;
+	    let courriel = form.courriel.value;
+	    
+        console.log('ok')
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', "/ajax_ajouter", true);
+        data = {
+            "nom" : nom,
+            "prenom" : prenom,
+            "telephone" : telephone,
+            "courriel" : courriel
+        }
+        console.log(data)
+        sData = JSON.stringify(data);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(sData);
+        xhr.addEventListener("readystatechange", traiterRequest, false);
+    })
+
+    function traiterRequest(e) {
+        console.log("xhr.readyState = " + xhr.readyState);
+        console.log("xhr.status = " + xhr.status);
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            console.log('ajax fonctionne')
+            let  maReponse = JSON.parse(xhr.responseText);
+            console.log(xhr.responseText);
+            console.log(maReponse._id);
+        }
+    }
+</script>
