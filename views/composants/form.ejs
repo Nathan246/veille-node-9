@@ -3,7 +3,7 @@
   <input type="text" placeholder="<%=__('prenom') %>" name="prenom" id='prenom'>
  <input type="text" placeholder="<%=__('telephone') %>" name="telephone" id='telephone'>
   <input type="text" placeholder="<%=__('courriel') %>" name="courriel" id='courriel'>
- <button name="boutonAjouter" type="button"><%=__('ajouter') %></button>
+ <button type="button"><%=__('ajouter') %></button>
 </form>
 
 <form class="formulaire" name="frmUpdate" id="frmUpdate" action="/modifier" method="post">
@@ -16,15 +16,15 @@
 </form>
 
 <script type="text/javascript">
-	let form = document.getElementById("formAjouter");
+	/*let form = document.getElementById("formAjouter");
 
-    let elmAjouter = form.boutonAjouter;
+    let elmAjouter = document.getElementById("boutonAjouter");
     elmAjouter.addEventListener('click', ()=>{
     	let nom = form.nom.value;
 	    let prenom = form.prenom.value;
 	    let telephone = form.telephone.value;
 	    let courriel = form.courriel.value;
-	    
+
         console.log('ok')
         xhr = new XMLHttpRequest();
         xhr.open('POST', "/ajax_ajouter", true);
@@ -50,5 +50,5 @@
             console.log(xhr.responseText);
             console.log(maReponse._id);
         }
-    }
+    }*/
 </script>

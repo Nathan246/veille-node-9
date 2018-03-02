@@ -163,8 +163,8 @@ if (err) return console.log(err)
  })
 })
 
-app.post('/ajax_detruire/:id', (req, res) => {
- console.log('route /detruire')
+app.get('/ajax_detruire/:id', (req, res) => {
+ console.log('route /ajax_detruire')
  // console.log('util = ' + util.inspect(req.params));	
  var id = req.params.id
  console.log(id)
