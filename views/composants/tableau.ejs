@@ -35,7 +35,6 @@
     <% } %>
 </table>
 
-// dans notre fichier .ejs
 <button id='testAJAX'>test AJAX</button>
 
 
@@ -47,12 +46,12 @@
     elmBouton.addEventListener('click', ()=>{
         console.log('ok')
         xhr = new XMLHttpRequest();
-        xhr.open('POST', "testajax", true);
+        xhr.open('POST', "/ajax_modifier", true);
         data = {
             "nom" : "AAAA",
             "prenom" : "BBBB",
             "telephone" : "CCCC",
-            "_id" : "2114322222542542345"
+            "_id" : "5a9992a25e3d69205c6a975d"
         }
         console.log(data)
         sData = JSON.stringify(data);
@@ -60,29 +59,59 @@
         xhr.send(sData);
         xhr.addEventListener("readystatechange", traiterRequest, false);
     })
+
+    // Dans notre fichier .ejs
+    // Pour traiter le résultat transmis par l'application serveur 
+
+    function traiterRequest(e) {
+        console.log("xhr.readyState = " + xhr.readyState);
+        console.log("xhr.status = " + xhr.status);
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            console.log('ajax fonctionne')
+            let  maReponse = JSON.parse(xhr.responseText);
+            console.log(xhr.responseText);
+            console.log(maReponse._id);
+        }
+    }
+
     let elmModifier = document.querySelectorAll('.modifier')
     console.log(elmModifier.length)
-    for (elm of elmModifier)
-        {
-            elm.addEventListener('click', function(){
-            console.log(this.parentElement.parentElement.id)
-            let elmTr = this.parentElement.parentElement 
-            let _id = elmTr.querySelector('td:nth-child(1)').innerHTML
-            let nom = elmTr.querySelector('td:nth-child(2)').innerHTML
-            let prenom = elmTr.querySelector('td:nth-child(3)').innerHTML
-            let telephone = elmTr.querySelector('td:nth-child(4)').innerHTML
-            let courriel = elmTr.querySelector('td:nth-child(5)').innerHTML
+    for (elm of elmModifier) {
+        elm.addEventListener('click', function(){
+        console.log(this.parentElement.parentElement.id)
+        let elmTr = this.parentElement.parentElement 
+        let _id = elmTr.querySelector('td:nth-child(1)').innerHTML
+        let nom = elmTr.querySelector('td:nth-child(2)').innerHTML
+        let prenom = elmTr.querySelector('td:nth-child(3)').innerHTML
+        let telephone = elmTr.querySelector('td:nth-child(4)').innerHTML
+        let courriel = elmTr.querySelector('td:nth-child(5)').innerHTML
 
-            elmForm = document.getElementById('frmUpdate')
+       /* elmForm = document.getElementById('frmUpdate')
 
-            elmForm.nom.value = nom
-            elmForm.prenom.value = prenom
-            elmForm.telephone.value = telephone
-            elmForm.courriel.value = courriel
-            elmForm._id.value =  _id
-            elmForm.submit()
-            })
+        elmForm.nom.value = nom
+        elmForm.prenom.value = prenom
+        elmForm.telephone.value = telephone
+        elmForm.courriel.value = courriel
+        elmForm._id.value =  _id
+        elmForm.submit()*/
+
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', "/ajax_modifier", true);
+        data = { 
+             "nom" : nom,
+             "prenom" : prenom,
+             "telephone" : telephone,
+             "courriel" : courriel,
+             "_id" : _id 
         }
+        sData = JSON.stringify(data);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(sData);
+        xhr.addEventListener("readystatechange", traiterRequest, false);
+
+
+        })
+    }
 
 
 
